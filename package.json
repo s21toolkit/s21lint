@@ -1,0 +1,37 @@
+{
+	"name": "@s21toolkit/lint",
+	"description": "C/C++ linter for school 21 project",
+	"module": "src/index.ts",
+	"type": "module",
+	"bin": {
+		"s21lint": "./bin/index.ts"
+	},
+	"scripts": {
+		"lint": "tsc && bun biome check .",
+		"lint:fix": "bun biome check --apply .",
+		"compile-grammar": "pnpm tree-sitter build-wasm --",
+		"compile-grammar:c": "pnpm compile-grammar node_modules/tree-sitter-c",
+		"compile-grammar:cpp": "pnpm compile-grammar node_modules/tree-sitter-cpp",
+		"compile-grammars": "pnpm compile-grammar:c"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^1.5.3",
+		"@tsconfig/bun": "^1.0.4",
+		"@tsconfig/strictest": "^2.0.3",
+		"@types/bun": "latest",
+		"@types/common-tags": "^1.8.4",
+		"tree-sitter-c": "^0.20.8",
+		"tree-sitter-cli": "^0.21.0",
+		"tree-sitter-cpp": "^0.20.5"
+	},
+	"peerDependencies": {
+		"typescript": "^5.3.3"
+	},
+	"dependencies": {
+		"chalk": "^5.3.0",
+		"cmd-ts": "^0.13.0",
+		"common-tags": "^1.8.2",
+		"fast-glob": "^3.3.2",
+		"web-tree-sitter": "^0.21.0"
+	}
+}
