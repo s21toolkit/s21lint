@@ -5,6 +5,7 @@ const GLOBAL_VARIABLE_DECLARATION_QUERY = oneLine`
 	(translation_unit
 		(declaration
 			(type_qualifier)? @type_qualifier
+			declarator: [(init_declarator) (identifier)]
 		) @declaration
 		(#not-eq? @type_qualifier "const")
 	)
