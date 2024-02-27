@@ -26,8 +26,8 @@ export const s21lintCommand = command({
 			return
 		}
 
-		const resolvedPaths = (await fg(pathsOrPatterns)).filter(
-			(file) => file.endsWith(".c") || file.endsWith(".h"),
+		const resolvedPaths = (await fg(pathsOrPatterns)).filter((file) =>
+			/\.(c|cc|cpp|cxx|h|hh|hxx|hpp)$/.test(file),
 		)
 
 		if (resolvedPaths.length === 0) {
@@ -38,7 +38,7 @@ export const s21lintCommand = command({
 			return
 		}
 
-		const parser = createParser("c")
+		const parser = createParser("cpp")
 
 		const linter = new Linter({ rules })
 
