@@ -4,6 +4,7 @@ import { s21StructuralFunctionLineLimit } from "./s21-structural-function-line-l
 import { s21StructuralIndentationLimit } from "./s21-structural-indentation-limit"
 import { s21StructuralNoGlobalVariables } from "./s21-structural-no-global-variables"
 import { s21StructuralNoMultipleReturns } from "./s21-structural-no-multiple-returns"
+import { s21StructuralNoMultipleLoopExits } from "./s21-structural-no-multiple-loop-exits"
 
 export const rules = [
 	s21StructuralNoGoto,
@@ -11,4 +12,5 @@ export const rules = [
 	s21StructuralIndentationLimit,
 	s21StructuralNoGlobalVariables,
 	s21StructuralNoMultipleReturns,
+	s21StructuralNoMultipleLoopExits,
 ] satisfies Rule[]
