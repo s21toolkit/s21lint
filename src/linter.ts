@@ -41,7 +41,7 @@ export class Linter {
 						node,
 						message,
 						reporter: rule,
-						severity: "warn",
+						severity: "warning",
 					}),
 				error: (node, message) =>
 					this.emitDiagnostic(filename, {
