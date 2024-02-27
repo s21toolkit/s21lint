@@ -1,11 +1,12 @@
 import Parser from "web-tree-sitter"
 import c from "@languages/tree-sitter-c.wasm"
+import cpp from "@languages/tree-sitter-cpp.wasm"
 
 await Parser.init()
 
 const languages = {
 	c: await Parser.Language.load(c),
-	// cpp: await Parser.Language.load("tree-sitter-cpp.wasm"),
+	cpp: await Parser.Language.load(cpp),
 }
 
 export type Language = keyof typeof languages
