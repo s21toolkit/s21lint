@@ -1,9 +1,10 @@
 import Parser from "web-tree-sitter"
+import c from "@languages/tree-sitter-c.wasm"
 
 await Parser.init()
 
 const languages = {
-	c: await Parser.Language.load("tree-sitter-c.wasm"),
+	c: await Parser.Language.load(c),
 	// cpp: await Parser.Language.load("tree-sitter-cpp.wasm"),
 }
 
