@@ -56,7 +56,7 @@ export const s21lintCommand = command({
 			}
 		}
 		if (!linter.hasDiagnostics()) {
-			console.log("No errors found")
+			console.log(`No errors found in ${resolvedPaths.length} files`)
 
 			return
 		}
