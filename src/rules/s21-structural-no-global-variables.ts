@@ -5,17 +5,23 @@ const GLOBAL_VARIABLE_DECLARATION_QUERY = oneLine`
 	[
 		(translation_unit
 			(declaration
-				(type_qualifier)? @type_qualifier
-					declarator: [(init_declarator) (identifier)]
+				(type_qualifier)* @type_qualifier
+				(type_qualifier)* @type_qualifier
+				(type_qualifier)* @type_qualifier
+				(type_qualifier)* @type_qualifier
+				declarator: [(init_declarator) (identifier)]
 			) @declaration
 			(#not-eq? @type_qualifier "const")
 		)
 		(namespace_definition
 			body: (_
 				(declaration
-					(type_qualifier)? @type_qualifier
-						declarator: [(init_declarator) (identifier)]
-					) @declaration
+					(type_qualifier)* @type_qualifier
+					(type_qualifier)* @type_qualifier
+					(type_qualifier)* @type_qualifier
+					(type_qualifier)* @type_qualifier
+					declarator: [(init_declarator) (identifier)]
+				) @declaration
 				(#not-eq? @type_qualifier "const")
 			)
 		)
