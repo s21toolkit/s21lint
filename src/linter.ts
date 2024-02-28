@@ -3,7 +3,8 @@ import type { Rule } from "./rule"
 import type { Diagnostic } from "./diagnostic"
 
 export class Linter {
-	readonly #diagnostics = new Map<string, Diagnostic[]>()
+	readonly #errors = new Map<string, Diagnostic[]>()
+	readonly #warnings = new Map<string, Diagnostic[]>()
 
 	constructor(
 		readonly configuration: {
@@ -12,11 +13,14 @@ export class Linter {
 	) {}
 
 	emitDiagnostic(filename: string, diagnostic: Diagnostic) {
-		if (!this.#diagnostics.has(filename)) {
-			this.#diagnostics.set(filename, [diagnostic])
+		const collection =
+			diagnostic.severity === "error" ? this.#errors : this.#warnings
+
+		if (!collection.has(filename)) {
+			collection.set(filename, [diagnostic])
 		} else {
-			// biome-ignore lint/style/noNonNullAssertion: <explanation>
-			this.#diagnostics.get(filename)!.push(diagnostic)
+			// biome-ignore lint/style/noNonNullAssertion:
+			collection.get(filename)!.push(diagnostic)
 		}
 	}
 
@@ -55,18 +59,64 @@ export class Linter {
 	}
 
 	getFileDiagnostics(filename: string) {
-		return this.#diagnostics.get(filename) ?? []
+		return [
+			...(this.diagnostics.errors.get(filename) ?? []),
+			...(this.diagnostics.warnings.get(filename) ?? []),
+		]
 	}
 
-	getDiagnostics() {
-		return this.#diagnostics
+	get diagnostics() {
+		return {
+			errors: this.#errors,
+			warnings: this.#warnings,
+		}
 	}
 
-	ok(filename?: string) {
+	hasErrors(filename?: string) {
 		if (!filename) {
-			return this.#diagnostics.size === 0
+			return this.diagnostics.errors.size > 0
 		}
 
-		return this.#diagnostics.has(filename)
+		return this.diagnostics.errors.has(filename)
+	}
+
+	hasWarnings(filename?: string) {
+		if (!filename) {
+			return this.diagnostics.warnings.size > 0
+		}
+
+		return this.diagnostics.warnings.has(filename)
+	}
+
+	hasDiagnostics(filename?: string) {
+		return this.hasErrors(filename) || this.hasWarnings(filename)
+	}
+
+	getStats(filename?: string) {
+		const errors = []
+		const warnings = []
+
+		if (!filename) {
+			for (const diagnostic of this.diagnostics.errors.values()) {
+				errors.push(...diagnostic)
+			}
+
+			for (const diagnostic of this.diagnostics.warnings.values()) {
+				warnings.push(...diagnostic)
+			}
+		} else {
+			const errorDiagnostics = this.diagnostics.errors.get(filename) ?? []
+			const warningDiagnostics =
+				this.diagnostics.warnings.get(filename) ?? []
+
+			errors.push(...errorDiagnostics)
+			warnings.push(...warningDiagnostics)
+		}
+
+		return {
+			errors: errors.length,
+			warnings: warnings.length,
+			total: errors.length + warnings.length,
+		}
 	}
 }

@@ -5,6 +5,8 @@ import { rules } from "@/rules"
 import { command, rest } from "cmd-ts"
 import fg from "fast-glob"
 import { readFile } from "node:fs/promises"
+import chalk from "chalk"
+import { oneLine } from "common-tags"
 
 export const s21lintCommand = command({
 	name: "s21lint",
@@ -53,21 +55,27 @@ export const s21lintCommand = command({
 				printDiagnostic(path, content, diagnostic)
 			}
 		}
-
-		if (!linter.ok()) {
-			process.exitCode = 1
-
-			const diagnosticCount = Array.from(linter.getDiagnostics())
-				.map(([, diagnostics]) => diagnostics.length)
-				.reduce((a, b) => a + b)
-
-			const erroneousFilesCount = linter.getDiagnostics().size
-
-			console.log(
-				`Found ${diagnosticCount} errors in ${erroneousFilesCount}/${resolvedPaths.length} files`,
-			)
-		} else {
+		if (!linter.hasDiagnostics()) {
 			console.log("No errors found")
+
+			return
 		}
+
+		if (linter.hasErrors()) {
+			process.exitCode = 1
+		}
+
+		const stats = linter.getStats()
+
+		const erroneousFileCount = new Set([
+			...linter.diagnostics.errors.keys(),
+			...linter.diagnostics.warnings.keys(),
+		]).size
+
+		console.log(oneLine`Found
+			${chalk.red(`${stats.errors} errors`)}
+			and ${chalk.yellow(`${stats.warnings} warnings`)}
+			in ${erroneousFileCount}/${resolvedPaths.length} files
+		`)
 	},
 })
