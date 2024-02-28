@@ -56,14 +56,23 @@ export const s21StructuralNoMultipleLoopExits = defineRule({
 					popExitStatements()
 				},
 			},
+			// Ignore breaks out of switch statements
 			switch_statement: {
 				enter() {
 					exitStatements.push([])
 				},
 				leave() {
-					// Ignore breaks out of switch statements
 					exitStatements.pop()
 				},
+			},
+			// Ignore returns from lambdas
+			lambda_expression: {
+				enter() {
+					exitStatements.push([])
+				},
+				leave() {
+					exitStatements.pop()
+				}
 			},
 			break_statement(node) {
 				pushExitStatement(node)

@@ -8,27 +8,30 @@ export const s21StructuralNoMultipleReturns = defineRule({
 	check(ctx) {
 		const returnStatements: SyntaxNode[][] = []
 
-		traverse(ctx.tree, {
-			function_definition: {
-				enter() {
-					returnStatements.push([])
-				},
-				leave() {
-					const top = returnStatements.pop()
-
-					if (!top || top.length <= 1) {
-						return
-					}
-
-					// Emit warnings since we can't be sure that all return statements are used correctly
-					for (const node of top) {
-						ctx.warn(
-							node,
-							"multiple return statements are only allowed for argument validation",
-						)
-					}
-				},
+		const functionVisitor = {
+			enter() {
+				returnStatements.push([])
 			},
+			leave() {
+				const top = returnStatements.pop()
+
+				if (!top || top.length <= 1) {
+					return
+				}
+
+				// Emit warnings since we can't be sure that all return statements are used correctly
+				for (const node of top) {
+					ctx.warn(
+						node,
+						"multiple return statements are only allowed for argument validation",
+					)
+				}
+			},
+		}
+
+		traverse(ctx.tree, {
+			function_definition: functionVisitor,
+			lambda_expression: functionVisitor,
 			return_statement(node) {
 				const top = returnStatements.at(-1)
 
