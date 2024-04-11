@@ -1,12 +1,12 @@
+import { readFile } from "node:fs/promises"
 import { Linter } from "@/linter"
 import { printDiagnostic } from "@/output"
 import { createParser } from "@/parser"
 import { rules } from "@/rules"
-import { command, rest } from "cmd-ts"
-import fg from "fast-glob"
-import { readFile } from "node:fs/promises"
 import chalk from "chalk"
+import { command, rest } from "cmd-ts"
 import { oneLine } from "common-tags"
+import fg from "fast-glob"
 
 export const s21lintCommand = command({
 	name: "s21lint",
@@ -72,7 +72,8 @@ export const s21lintCommand = command({
 			...linter.diagnostics.warnings.keys(),
 		]).size
 
-		console.log(oneLine`Found
+		console.log(oneLine`
+			Found
 			${chalk.red(`${stats.errors} errors`)}
 			and ${chalk.yellow(`${stats.warnings} warnings`)}
 			in ${erroneousFileCount}/${resolvedPaths.length} files

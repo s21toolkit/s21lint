@@ -72,7 +72,7 @@ export const s21StructuralNoMultipleLoopExits = defineRule({
 				},
 				leave() {
 					exitStatements.pop()
-				}
+				},
 			},
 			break_statement(node) {
 				pushExitStatement(node)

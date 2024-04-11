@@ -1,6 +1,6 @@
 import type Parser from "web-tree-sitter"
-import type { Rule } from "./rule"
 import type { Diagnostic } from "./diagnostic"
+import type { Rule } from "./rule"
 
 export class Linter {
 	readonly #errors = new Map<string, Diagnostic[]>()

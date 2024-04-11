@@ -1,6 +1,6 @@
 import chalk from "chalk"
-import type { Diagnostic } from "./diagnostic"
 import { stripIndent } from "common-tags"
+import type { Diagnostic } from "./diagnostic"
 
 export function printDiagnostic(
 	filename: string,

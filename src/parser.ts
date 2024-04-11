@@ -1,6 +1,6 @@
-import Parser from "web-tree-sitter"
 import c from "@languages/tree-sitter-c.wasm"
 import cpp from "@languages/tree-sitter-cpp.wasm"
+import Parser from "web-tree-sitter"
 
 await Parser.init()
 
