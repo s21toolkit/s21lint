@@ -3,10 +3,12 @@
 	"description": "C/C++ linter for school 21 project",
 	"version": "1.0.4",
 	"private": false,
-	"module": "build/index.js",
-	"main": "build/index.cjs",
-	"types": "build/index.d.ts",
 	"type": "module",
+	"exports": {
+		"default": "./build/index.js",
+		"require": "./build/index.cjs",
+		"types": "./build/index.d.ts"
+	},
 	"bin": {
 		"s21lint": "./build/main.js"
 	},
