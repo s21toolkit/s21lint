@@ -1,14 +1,25 @@
-import { defineConfig } from "tsup"
+import { type Options, defineConfig } from "tsup"
 
-export default defineConfig({
-	entry: ["src/index.ts", "src/main.ts"],
+const baseConfig = {
 	clean: true,
 	bundle: true,
-	dts: true,
 	outDir: "build",
-	format: "esm",
-	target: "node20",
 	loader: {
 		".wasm": "file",
 	},
-})
+} satisfies Options
+
+export default defineConfig([
+	{
+		...baseConfig,
+		entry: ["src/main.ts"],
+		format: "esm",
+		target: "node20",
+	},
+	{
+		...baseConfig,
+		entry: ["src/index.ts"],
+		format: ["esm", "cjs"],
+		dts: true,
+	},
+])

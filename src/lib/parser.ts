@@ -3,17 +3,27 @@ import c from "@languages/tree-sitter-c.wasm"
 import cpp from "@languages/tree-sitter-cpp.wasm"
 import Parser from "web-tree-sitter"
 
-await Parser.init()
+async function loadLanguages() {
+	const languages = {
+		c: await Parser.Language.load(join(import.meta.dirname, c)),
+		cpp: await Parser.Language.load(join(import.meta.dirname, cpp)),
+	}
 
-const languages = {
-	c: await Parser.Language.load(join(import.meta.dirname, c)),
-	cpp: await Parser.Language.load(join(import.meta.dirname, cpp)),
+	return languages
 }
 
-export type Language = keyof typeof languages
+export type Language = keyof Awaited<ReturnType<typeof loadLanguages>>
 
-export function createParser(language: Language) {
+let languages: Awaited<ReturnType<typeof loadLanguages>> | undefined
+
+export async function createParser(language: Language) {
+	await Parser.init()
+
 	const parser = new Parser()
+
+	if (!languages) {
+		languages = await loadLanguages()
+	}
 
 	parser.setLanguage(languages[language])
 

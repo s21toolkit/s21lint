@@ -4,15 +4,13 @@
 	"version": "1.0.3",
 	"private": false,
 	"module": "build/index.js",
+	"main": "build/index.cjs",
 	"types": "build/index.d.ts",
 	"type": "module",
 	"bin": {
 		"s21lint": "./build/main.js"
 	},
-	"files": [
-		"build/*",
-		"README.md"
-	],
+	"files": ["build/*", "README.md"],
 	"scripts": {
 		"build:compile": "tsup",
 		"build": "pnpm lint && pnpm build:compile",

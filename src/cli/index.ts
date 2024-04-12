@@ -38,7 +38,7 @@ export const s21lintCommand = command({
 			return
 		}
 
-		const parser = createParser("cpp")
+		const parser = await createParser("cpp")
 
 		const linter = new Linter({ rules })
 
