@@ -4,11 +4,8 @@
 
 ## Установка
 
-> [!IMPORTANT]
-> Для работы необходим [Bun](https://bun.sh/)
-
 ```sh
-bun add --global github:s21toolkit/s21lint
+npm install --global @s21toolkit/lint
 ```
 
 ## Использование
