@@ -1,7 +1,7 @@
 {
 	"name": "@s21toolkit/lint",
 	"description": "C/C++ linter for school 21 project",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"private": false,
 	"module": "build/index.js",
 	"types": "build/index.d.ts",
@@ -9,7 +9,10 @@
 	"bin": {
 		"s21lint": "./build/main.js"
 	},
-	"files": ["build/*", "README.md"],
+	"files": [
+		"build/*",
+		"README.md"
+	],
 	"scripts": {
 		"build:compile": "tsup",
 		"build": "pnpm lint && pnpm build:compile",
