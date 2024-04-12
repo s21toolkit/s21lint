@@ -1,19 +1,24 @@
 {
 	"name": "@s21toolkit/lint",
 	"description": "C/C++ linter for school 21 project",
+	"version": "0.0.1",
 	"module": "build/index.js",
 	"type": "module",
 	"bin": {
 		"s21lint": "./build/main.js"
 	},
 	"scripts": {
-		"build": "tsup",
+		"build:compile": "tsup",
+		"build": "pnpm lint && pnpm build:compile",
 		"lint": "tsc && bun biome check .",
 		"lint:fix": "bun biome check --apply .",
 		"compile-grammar": "pnpm tree-sitter build-wasm --",
 		"compile-grammar:c": "pnpm compile-grammar node_modules/tree-sitter-c",
 		"compile-grammar:cpp": "pnpm compile-grammar node_modules/tree-sitter-cpp",
-		"compile-grammars": "pnpm compile-grammar:c"
+		"compile-grammars": "pnpm compile-grammar:c",
+		"prepublishOnly": "pnpm build",
+		"postversion": "git push & git push --tags",
+		"release": "npm version -m 'chore(release): %s' --"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^1.6.4",
@@ -38,5 +43,8 @@
 	},
 	"volta": {
 		"node": "20.12.2"
+	},
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org"
 	}
 }
