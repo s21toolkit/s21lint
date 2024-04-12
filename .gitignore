@@ -176,3 +176,6 @@ dist
 
 # VSCode workspace configuration
 .vscode/
+
+# Build artifacts
+build/

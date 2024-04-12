@@ -1,4 +1,4 @@
-import { defineRule } from "@/rule"
+import { defineRule } from "@/lib"
 
 const FUNCTION_BODY_LINE_LIMIT = 50
 

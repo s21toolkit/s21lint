@@ -1,4 +1,4 @@
-import { defineRule } from "@/rule"
+import { defineRule } from "@/lib"
 
 export const s21StructuralNoGoto = defineRule({
 	name: "s21-structural-no-goto",

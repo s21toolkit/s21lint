@@ -1,7 +1,5 @@
 import { readFile } from "node:fs/promises"
-import { Linter } from "@/linter"
-import { printDiagnostic } from "@/output"
-import { createParser } from "@/parser"
+import { Linter, createParser, printDiagnostic } from "@/lib"
 import { rules } from "@/rules"
 import chalk from "chalk"
 import { command, rest } from "cmd-ts"

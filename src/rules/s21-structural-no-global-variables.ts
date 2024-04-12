@@ -1,4 +1,4 @@
-import { defineRule } from "@/rule"
+import { defineRule } from "@/lib"
 import { oneLine } from "common-tags"
 
 const GLOBAL_VARIABLE_DECLARATION_QUERY = oneLine`

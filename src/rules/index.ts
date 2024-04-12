@@ -1,4 +1,4 @@
-import type { Rule } from "@/rule"
+import type { Rule } from "@/lib"
 import { s21StructuralFunctionLineLimit } from "./s21-structural-function-line-limit"
 import { s21StructuralIndentationLimit } from "./s21-structural-indentation-limit"
 import { s21StructuralNoGlobalVariables } from "./s21-structural-no-global-variables"
@@ -14,3 +14,10 @@ export const rules = [
 	s21StructuralNoMultipleReturns,
 	s21StructuralNoMultipleLoopExits,
 ] satisfies Rule[]
+
+export * from "./s21-structural-function-line-limit"
+export * from "./s21-structural-indentation-limit"
+export * from "./s21-structural-no-global-variables"
+export * from "./s21-structural-no-goto"
+export * from "./s21-structural-no-multiple-loop-exits"
+export * from "./s21-structural-no-multiple-returns"

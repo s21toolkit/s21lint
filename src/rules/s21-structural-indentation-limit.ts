@@ -1,5 +1,4 @@
-import { defineRule } from "@/rule"
-import { traverse } from "@/traversal"
+import { defineRule, traverse } from "@/lib"
 
 const INDENTATION_LIMIT = 4
 

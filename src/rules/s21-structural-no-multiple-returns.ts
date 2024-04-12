@@ -1,5 +1,4 @@
-import { defineRule } from "@/rule"
-import { traverse } from "@/traversal"
+import { defineRule, traverse } from "@/lib"
 import type { SyntaxNode } from "web-tree-sitter"
 
 export const s21StructuralNoMultipleReturns = defineRule({
