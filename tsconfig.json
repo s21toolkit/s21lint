@@ -6,11 +6,14 @@
 	"compilerOptions": {
 		"module": "ESNext",
 		"moduleResolution": "Bundler",
+		"noEmit": true,
+		"declaration": false,
 
 		"baseUrl": ".",
 		"paths": {
 			"@/*": ["./src/*"],
 			"@languages/*": ["./languages/*"]
 		}
-	}
+	},
+	"exclude": ["build"]
 }
