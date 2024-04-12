@@ -4,7 +4,7 @@
 		"enabled": true
 	},
 	"files": {
-		"ignore": ["build"]
+		"ignore": ["build", "package.json", "pnpm-lock.yaml"]
 	},
 	"linter": {
 		"enabled": true,
