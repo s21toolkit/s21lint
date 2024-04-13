@@ -59,16 +59,27 @@ export class Linter {
 	}
 
 	getFileDiagnostics(filename: string) {
-		return [
-			...(this.diagnostics.errors.get(filename) ?? []),
-			...(this.diagnostics.warnings.get(filename) ?? []),
-		]
+		const warnings = this.diagnostics.warnings.get(filename) ?? []
+		const errors = this.diagnostics.errors.get(filename) ?? []
+
+		return {
+			warnings,
+			errors,
+			*[Symbol.iterator]() {
+				yield* this.warnings
+				yield* this.errors
+			},
+		}
 	}
 
 	get diagnostics() {
 		return {
-			errors: this.#errors,
 			warnings: this.#warnings,
+			errors: this.#errors,
+			*[Symbol.iterator]() {
+				yield* this.warnings
+				yield* this.errors
+			},
 		}
 	}
 
@@ -118,5 +129,15 @@ export class Linter {
 			warnings: warnings.length,
 			total: errors.length + warnings.length,
 		}
+	}
+
+	clearDiagnostics() {
+		this.#errors.clear()
+		this.#warnings.clear()
+	}
+
+	clearFileDiagnostics(filename: string) {
+		this.#errors.delete(filename)
+		this.#warnings.delete(filename)
 	}
 }
