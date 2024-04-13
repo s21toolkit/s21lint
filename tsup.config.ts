@@ -5,7 +5,7 @@ const baseConfig = {
 	bundle: true,
 	outDir: "build",
 	loader: {
-		".wasm": "file",
+		".wasm": "binary",
 	},
 } satisfies Options
 

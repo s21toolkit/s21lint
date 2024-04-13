@@ -1,5 +1,5 @@
 declare module "*.wasm" {
-	const path: string
+	const source: Uint8Array
 
-	export default path
+	export default source
 }

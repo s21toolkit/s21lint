@@ -1,12 +1,11 @@
-import { join } from "node:path"
 import c from "@languages/tree-sitter-c.wasm"
 import cpp from "@languages/tree-sitter-cpp.wasm"
 import Parser from "web-tree-sitter"
 
 async function loadLanguages() {
 	const languages = {
-		c: await Parser.Language.load(join(import.meta.dirname, c)),
-		cpp: await Parser.Language.load(join(import.meta.dirname, cpp)),
+		c: await Parser.Language.load(c),
+		cpp: await Parser.Language.load(cpp),
 	}
 
 	return languages
