@@ -25,6 +25,8 @@ export class Linter {
 	}
 
 	checkProgram(program: Parser.Tree, filename = "default") {
+		this.clearFileDiagnostics(filename)
+
 		const context = {
 			node: program.rootNode,
 			tree: program,
