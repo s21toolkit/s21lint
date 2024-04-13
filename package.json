@@ -1,7 +1,7 @@
 {
 	"name": "@s21toolkit/lint",
 	"description": "C/C++ linter for school 21 project",
-	"version": "1.0.5",
+	"version": "1.0.6-dev.0",
 	"private": false,
 	"type": "module",
 	"exports": {
